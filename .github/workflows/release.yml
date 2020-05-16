@@ -1,0 +1,28 @@
+## Mostly copied from https://github.com/brpaz/github-actions-demo-go/blob/master/.github/workflows/release.yml
+
+name: Release
+on:
+  create:
+    tags:
+      -v*
+
+jobs:
+  release:
+    name: Release on GitHub
+    runs-on ubuntu-latest
+    steps:
+      - name: check out code
+        uses: actions/checkout@v2
+
+      - name: Validates Go releaser config
+        uses: docker://goreleaser/goreleaser:latest
+        with:
+          args: check
+
+      - name: Create GitHub Release
+        uses: docker://goreleaser/goreleaser:latest
+        with:
+          args: release
+        env:
+          GITHUB_TOKEN: ${{secrets.RELEASE_TOKEN}}
+

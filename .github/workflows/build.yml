@@ -28,5 +28,23 @@ jobs:
     - name: Get Go dependencies
       run: go get -v -t -d ./...
 
+    - name: Lint Go Code
+      run: |
+        export PATH=$PATH:$(go env GOPATH)/bin
+        go get -u golang.org/x/lint/golint
+        make lint
+
+    - name: Run Code Coverage
+      run: make test-coverage
+
+    - name: Upload Coverage report to CodeCov
+      uses: codecov/codecov-action@v1.0.0
+      with:
+        token: ${{secrets.CODECOV_TOKEN}} ## https://github.com/ComplianceAsCode/libreSCAP/settings/secrets
+        file: ./coverage.txt
+
     - name: Unit tests
       run: go test ./...
+
+    - name: Build
+      run: make build
