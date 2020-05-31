@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/complianceascode/librescap/pkg/scap/models/xccdf/1.2"
+	"github.com/complianceascode/librescap/pkg/scap/models/xccdf"
 )
 
 const (
