@@ -1,4 +1,4 @@
-package xccdf_test
+package cdf_test
 
 import (
 	"testing"

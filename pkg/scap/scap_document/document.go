@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/complianceascode/librescap/pkg/scap/models/xccdf"
+	"github.com/complianceascode/librescap/pkg/scap/models/cdf"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 
 type Document struct {
 	XMLName xml.Name `json:"-"`
-	*xccdf.Benchmark
+	*cdf.Benchmark
 }
 
 func ReadDocument(r io.Reader) (*Document, error) {
@@ -29,7 +29,7 @@ func ReadDocument(r io.Reader) (*Document, error) {
 		case xml.StartElement:
 			switch startElement.Name.Local {
 			case xccdfBenchmarkElement:
-				var bench xccdf.Benchmark
+				var bench cdf.Benchmark
 				if err := d.DecodeElement(&bench, &startElement); err != nil {
 					return nil, err
 				}
